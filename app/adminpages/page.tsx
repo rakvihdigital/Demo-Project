@@ -99,7 +99,7 @@ interface CalendarEvent {
 }
 
 
-export default function Dashboard() {
+function DashboardContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const role = searchParams.get('role') || 'admin';
