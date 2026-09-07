@@ -971,9 +971,14 @@ function AdminContent(props: any) {
               <textarea rows={6} value={bulkUploadText} onChange={(e) => setBulkUploadText(e.target.value)} placeholder={`Example:\nAmit Joshi, amit.joshi@mail.com, 98450 12345\nRhea Sen, rhea.sen@mail.com, 98450 67890`} className="w-full p-4 bg-[#f2f7f5] border border-[#e0ebe7] rounded-xl font-mono text-[12px] resize-none" />
               <button
                 onClick={() => {
-                  const lines = bulkUploadText.split('\n').filter(Boolean);
-                  const newOnes: Candidate[] = lines.map((line, idx) => {
-                    const [name, email, phone] = line.split(',').map((s) => s.trim());
+const lines: string[] = bulkUploadText
+  .split('\n')
+  .filter((line: string) => Boolean(line.trim()));
+
+const newOnes: Candidate[] = lines.map((line: string, idx: number) => {
+  const [name, email, phone] = line
+    .split(',')
+    .map((s: string) => s.trim());
                     const [first, ...rest] = (name || 'New Candidate').split(' ');
                     return { id: `c-bulk-${Date.now()}-${idx}`, firstName: first, lastName: rest.join(' '), email: email || '—', phone: phone || '—', experienceStatus: 'Fresher', noticePeriod: 'Immediate', expectedSalary: '—', aadhar: '—', pan: '—', requirement: 'General pool', screeningNotes: 'Added via bulk upload.', resumeFileName: 'No file', stage: 'Screening', addedBy: 'admin', addedOn: '2026-09-07' };
                   });
