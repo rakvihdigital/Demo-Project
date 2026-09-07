@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { initialStudents, initialTeachers, initialAnnouncements, Student, Teacher, Announcement } from '@/data/mockData';
 
 interface SubjectItem {
@@ -12,12 +12,12 @@ interface SubjectItem {
 }
 
 interface AdminUser {
-  id: string;
-  name: string;
-  email: string;
-  role: 'Super Admin' | 'Sub-Admin' | 'Accounts Admin' | 'Transport Admin';
-  status: 'Active' | 'Inactive';
-  lastLogin: string;
+    id: string;
+    name: string;
+    email: string;
+    role: 'Super Admin' | 'Sub-Admin' | 'Accounts Admin' | 'Transport Admin';
+    status: 'Active' | 'Inactive';
+    lastLogin: string;
 }
 
 interface PhotoAlbum {
@@ -164,26 +164,26 @@ function DashboardContent() {
 
 
     const [adminUsers, setAdminUsers] = useState<AdminUser[]>([
-  { id: '1', name: 'Vyshnavi V Gowda', email: 'vyshnavi@rakvih.com', role: 'Super Admin', status: 'Active', lastLogin: '2026-08-13 10:30 AM' },
-  { id: '2', name: 'Rajesh Kumar', email: 'rajesh.admin@school.edu', role: 'Accounts Admin', status: 'Active', lastLogin: '2026-08-12 04:15 PM' },
-  { id: '3', name: 'Priya Sharma', email: 'priya.transport@school.edu', role: 'Transport Admin', status: 'Inactive', lastLogin: '2026-07-28 09:00 AM' },
-]);
-const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
-const [admName, setAdmName] = useState('');
-const [admEmail, setAdmEmail] = useState('');
-const [admRole, setAdmRole] = useState<'Super Admin' | 'Sub-Admin' | 'Accounts Admin' | 'Transport Admin'>('Sub-Admin');
-const [admStatus, setAdmStatus] = useState<'Active' | 'Inactive'>('Active');
+        { id: '1', name: 'Vyshnavi V Gowda', email: 'vyshnavi@rakvih.com', role: 'Super Admin', status: 'Active', lastLogin: '2026-08-13 10:30 AM' },
+        { id: '2', name: 'Rajesh Kumar', email: 'rajesh.admin@school.edu', role: 'Accounts Admin', status: 'Active', lastLogin: '2026-08-12 04:15 PM' },
+        { id: '3', name: 'Priya Sharma', email: 'priya.transport@school.edu', role: 'Transport Admin', status: 'Inactive', lastLogin: '2026-07-28 09:00 AM' },
+    ]);
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+    const [admName, setAdmName] = useState('');
+    const [admEmail, setAdmEmail] = useState('');
+    const [admRole, setAdmRole] = useState<'Super Admin' | 'Sub-Admin' | 'Accounts Admin' | 'Transport Admin'>('Sub-Admin');
+    const [admStatus, setAdmStatus] = useState<'Active' | 'Inactive'>('Active');
 
-const [schoolName, setSchoolName] = useState('Rakvih School Demo & High School');
-const [academicYear, setAcademicYear] = useState('2026-2027');
-const [schoolAddress, setSchoolAddress] = useState('#45, Knowledge Park, Outer Ring Road, Bengaluru - 560103');
-const [contactEmail, setContactEmail] = useState('info@prashanthischool.edu');
-const [contactPhone, setContactPhone] = useState('+91 80 2345 6789');
-const [socialFacebook, setSocialFacebook] = useState('https://facebook.com/prashanthischool');
-const [socialInstagram, setSocialInstagram] = useState('https://instagram.com/prashanthi_edu');
-const [socialTwitter, setSocialTwitter] = useState('https://twitter.com/prashanthi_sch');
-const [socialYoutube, setSocialYoutube] = useState('https://youtube.com/@prashanthischool');
-const [isSettingsSaved, setIsSettingsSaved] = useState(false);
+    const [schoolName, setSchoolName] = useState('Rakvih School Demo & High School');
+    const [academicYear, setAcademicYear] = useState('2026-2027');
+    const [schoolAddress, setSchoolAddress] = useState('#45, Knowledge Park, Outer Ring Road, Bengaluru - 560103');
+    const [contactEmail, setContactEmail] = useState('info@prashanthischool.edu');
+    const [contactPhone, setContactPhone] = useState('+91 80 2345 6789');
+    const [socialFacebook, setSocialFacebook] = useState('https://facebook.com/prashanthischool');
+    const [socialInstagram, setSocialInstagram] = useState('https://instagram.com/prashanthi_edu');
+    const [socialTwitter, setSocialTwitter] = useState('https://twitter.com/prashanthi_sch');
+    const [socialYoutube, setSocialYoutube] = useState('https://youtube.com/@prashanthischool');
+    const [isSettingsSaved, setIsSettingsSaved] = useState(false);
 
     const [feeStructures, setFeeStructures] = useState<FeeStructureItem[]>([
         { id: '1', grade: '10th A', tuitionFee: 25000, libraryFee: 2000, busFee: 5000, otherFee: 1500, total: 33500 },
@@ -370,136 +370,136 @@ const [isSettingsSaved, setIsSettingsSaved] = useState(false);
                 {role === 'admin' && (
                     <div className="space-y-6">
                         {/* 1. DASHBOARD */}
-            {/* 1. DASHBOARD OVERVIEW */}
-{activeTab === 'dashboard' && (
-  <div className="space-y-6">
-    {/* Top Metric Cards */}
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-      <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-        <div>
-          <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Students</p>
-          <p className="text-3xl font-bold mt-2 text-blue-400">{students?.length || 1420}</p>
-        </div>
-        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
-          <span>Active Enrollments</span>
-          <span className="text-emerald-400 font-semibold">+12% this term</span>
-        </div>
-      </div>
+                        {/* 1. DASHBOARD OVERVIEW */}
+                        {activeTab === 'dashboard' && (
+                            <div className="space-y-6">
+                                {/* Top Metric Cards */}
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+                                    <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Students</p>
+                                            <p className="text-3xl font-bold mt-2 text-blue-400">{students?.length || 1420}</p>
+                                        </div>
+                                        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                                            <span>Active Enrollments</span>
+                                            <span className="text-emerald-400 font-semibold">+12% this term</span>
+                                        </div>
+                                    </div>
 
-      <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-        <div>
-          <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Teachers</p>
-          <p className="text-3xl font-bold mt-2 text-indigo-400">{teachers?.length || 68}</p>
-        </div>
-        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
-          <span>Faculty Staff</span>
-          <span className="text-indigo-400 font-semibold">100% Verified</span>
-        </div>
-      </div>
+                                    <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Teachers</p>
+                                            <p className="text-3xl font-bold mt-2 text-indigo-400">{teachers?.length || 68}</p>
+                                        </div>
+                                        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                                            <span>Faculty Staff</span>
+                                            <span className="text-indigo-400 font-semibold">100% Verified</span>
+                                        </div>
+                                    </div>
 
-      <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-        <div>
-          <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Fee Collection</p>
-          <p className="text-3xl font-bold mt-2 text-emerald-400">
-            {typeof feeRecords !== 'undefined' && feeRecords.length > 0 
-              ? `${Math.round((feeRecords.reduce((acc, r) => acc + r.paidAmount, 0) / feeRecords.reduce((acc, r) => acc + r.totalFee, 0)) * 100)}%`
-              : '86.4%'}
-          </p>
-        </div>
-        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
-          <span>Real-time Ledger</span>
-          <span className="text-emerald-400 font-semibold">On Track</span>
-        </div>
-      </div>
+                                    <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Fee Collection</p>
+                                            <p className="text-3xl font-bold mt-2 text-emerald-400">
+                                                {typeof feeRecords !== 'undefined' && feeRecords.length > 0
+                                                    ? `${Math.round((feeRecords.reduce((acc, r) => acc + r.paidAmount, 0) / feeRecords.reduce((acc, r) => acc + r.totalFee, 0)) * 100)}%`
+                                                    : '86.4%'}
+                                            </p>
+                                        </div>
+                                        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                                            <span>Real-time Ledger</span>
+                                            <span className="text-emerald-400 font-semibold">On Track</span>
+                                        </div>
+                                    </div>
 
-      <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-        <div>
-          <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Active Notices</p>
-          <p className="text-3xl font-bold mt-2 text-amber-400">{announcements?.length || 5}</p>
-        </div>
-        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
-          <span>Broadcasted</span>
-          <span className="text-amber-400 font-semibold">Live</span>
-        </div>
-      </div>
-    </div>
+                                    <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Active Notices</p>
+                                            <p className="text-3xl font-bold mt-2 text-amber-400">{announcements?.length || 5}</p>
+                                        </div>
+                                        <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                                            <span>Broadcasted</span>
+                                            <span className="text-amber-400 font-semibold">Live</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-    {/* Recent Activity & Quick Shortcuts Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="md:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-        <h3 className="text-lg font-semibold text-slate-100">School Performance Summary</h3>
-        <p className="text-xs text-slate-400">Overview of student attendance, average examination scores, and transport utilization for academic year 2026-2027.</p>
-        
-        <div className="space-y-3 pt-2">
-          <div>
-            <div className="flex justify-between text-xs font-medium text-slate-300 mb-1">
-              <span>Overall Attendance Rate</span>
-              <span className="text-emerald-400">94.2%</span>
-            </div>
-            <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-              <div className="bg-emerald-500 h-full rounded-full" style={{ width: '94.2%' }}></div>
-            </div>
-          </div>
+                                {/* Recent Activity & Quick Shortcuts Grid */}
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="md:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                                        <h3 className="text-lg font-semibold text-slate-100">School Performance Summary</h3>
+                                        <p className="text-xs text-slate-400">Overview of student attendance, average examination scores, and transport utilization for academic year 2026-2027.</p>
 
-          <div>
-            <div className="flex justify-between text-xs font-medium text-slate-300 mb-1">
-              <span>Fee Collection Progress</span>
-              <span className="text-blue-400">86.4%</span>
-            </div>
-            <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-              <div className="bg-blue-500 h-full rounded-full" style={{ width: '86.4%' }}></div>
-            </div>
-          </div>
+                                        <div className="space-y-3 pt-2">
+                                            <div>
+                                                <div className="flex justify-between text-xs font-medium text-slate-300 mb-1">
+                                                    <span>Overall Attendance Rate</span>
+                                                    <span className="text-emerald-400">94.2%</span>
+                                                </div>
+                                                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                                    <div className="bg-emerald-500 h-full rounded-full" style={{ width: '94.2%' }}></div>
+                                                </div>
+                                            </div>
 
-          <div>
-            <div className="flex justify-between text-xs font-medium text-slate-300 mb-1">
-              <span>Transport Route Capacity</span>
-              <span className="text-purple-400">78.0%</span>
-            </div>
-            <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-              <div className="bg-purple-500 h-full rounded-full" style={{ width: '78.0%' }}></div>
-            </div>
-          </div>
-        </div>
-      </div>
+                                            <div>
+                                                <div className="flex justify-between text-xs font-medium text-slate-300 mb-1">
+                                                    <span>Fee Collection Progress</span>
+                                                    <span className="text-blue-400">86.4%</span>
+                                                </div>
+                                                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                                    <div className="bg-blue-500 h-full rounded-full" style={{ width: '86.4%' }}></div>
+                                                </div>
+                                            </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 flex flex-col justify-between">
-        <div className="space-y-3">
-          <h3 className="text-lg font-semibold text-slate-100">Quick Actions</h3>
-          <p className="text-xs text-slate-400">Frequently used administrative shortcuts.</p>
-          
-          <div className="space-y-2 pt-2">
-            <button 
-              onClick={() => setActiveTab('fee-management')} 
-              className="w-full text-left px-4 py-2.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-xs font-medium text-slate-200 transition-all flex justify-between items-center"
-            >
-              <span>Record Fee Payment</span>
-              <span>→</span>
-            </button>
-            <button 
-              onClick={() => setActiveTab('marks-ledger')} 
-              className="w-full text-left px-4 py-2.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-xs font-medium text-slate-200 transition-all flex justify-between items-center"
-            >
-              <span>Add Grade Transcript</span>
-              <span>→</span>
-            </button>
-            <button 
-              onClick={() => setActiveTab('transport')} 
-              className="w-full text-left px-4 py-2.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-xs font-medium text-slate-200 transition-all flex justify-between items-center"
-            >
-              <span>Allocate Student Bus</span>
-              <span>→</span>
-            </button>
-          </div>
-        </div>
+                                            <div>
+                                                <div className="flex justify-between text-xs font-medium text-slate-300 mb-1">
+                                                    <span>Transport Route Capacity</span>
+                                                    <span className="text-purple-400">78.0%</span>
+                                                </div>
+                                                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                                    <div className="bg-purple-500 h-full rounded-full" style={{ width: '78.0%' }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <div className="pt-4 border-t border-slate-800 text-[11px] text-slate-500 text-center">
-          Rakvih School Demo Portal v2.5
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+                                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 flex flex-col justify-between">
+                                        <div className="space-y-3">
+                                            <h3 className="text-lg font-semibold text-slate-100">Quick Actions</h3>
+                                            <p className="text-xs text-slate-400">Frequently used administrative shortcuts.</p>
+
+                                            <div className="space-y-2 pt-2">
+                                                <button
+                                                    onClick={() => setActiveTab('fee-management')}
+                                                    className="w-full text-left px-4 py-2.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-xs font-medium text-slate-200 transition-all flex justify-between items-center"
+                                                >
+                                                    <span>Record Fee Payment</span>
+                                                    <span>→</span>
+                                                </button>
+                                                <button
+                                                    onClick={() => setActiveTab('marks-ledger')}
+                                                    className="w-full text-left px-4 py-2.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-xs font-medium text-slate-200 transition-all flex justify-between items-center"
+                                                >
+                                                    <span>Add Grade Transcript</span>
+                                                    <span>→</span>
+                                                </button>
+                                                <button
+                                                    onClick={() => setActiveTab('transport')}
+                                                    className="w-full text-left px-4 py-2.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-xs font-medium text-slate-200 transition-all flex justify-between items-center"
+                                                >
+                                                    <span>Allocate Student Bus</span>
+                                                    <span>→</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-4 border-t border-slate-800 text-[11px] text-slate-500 text-center">
+                                            Rakvih School Demo Portal v2.5
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         {/* 2. TEACHERS */}
                         {activeTab === 'teachers' && (
@@ -1952,12 +1952,12 @@ const [isSettingsSaved, setIsSettingsSaved] = useState(false);
                                                 <div className="space-y-2">
                                                     <div className="flex justify-between items-start">
                                                         <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${evt.category === 'Holiday'
-                                                                ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                                                                : evt.category === 'Exam'
-                                                                    ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                                                                    : evt.category === 'Sports'
-                                                                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                                                                        : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                                                            ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                                                            : evt.category === 'Exam'
+                                                                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                                                                : evt.category === 'Sports'
+                                                                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                                                    : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                                                             }`}>
                                                             {evt.category}
                                                         </span>
@@ -2254,351 +2254,356 @@ const [isSettingsSaved, setIsSettingsSaved] = useState(false);
                             </div>
                         )}
 
-                    {/* ADMIN MANAGEMENT CONSOLE (Super & Sub-Admin Credentials & Access Control) */}
-{activeTab === 'admin-management' && (
-  <div className="space-y-6">
-    <div className="flex justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6">
-      <div>
-        <h3 className="text-lg font-semibold text-slate-100">Admin Management & Credentials</h3>
-        <p className="text-xs text-slate-400 mt-0.5">Configure Super Admin and Sub-Admin permissions, security roles, and system access.</p>
-      </div>
-      <button
-        onClick={() => setIsAdminModalOpen(true)}
-        className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
-      >
-        <span>+ Add Admin User</span>
-      </button>
-    </div>
+                        {/* ADMIN MANAGEMENT CONSOLE (Super & Sub-Admin Credentials & Access Control) */}
+                        {activeTab === 'admin-management' && (
+                            <div className="space-y-6">
+                                <div className="flex justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-slate-100">Admin Management & Credentials</h3>
+                                        <p className="text-xs text-slate-400 mt-0.5">Configure Super Admin and Sub-Admin permissions, security roles, and system access.</p>
+                                    </div>
+                                    <button
+                                        onClick={() => setIsAdminModalOpen(true)}
+                                        className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
+                                    >
+                                        <span>+ Add Admin User</span>
+                                    </button>
+                                </div>
 
-    {/* Admin Users Table */}
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-slate-100">Authorized Administrators</h3>
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-300">
-          <thead className="bg-slate-800/50 text-slate-400 uppercase text-[10px]">
-            <tr>
-              <th className="p-3">Administrator Name</th>
-              <th className="p-3">Email Address</th>
-              <th className="p-3">Access Role</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Last Login</th>
-              <th className="p-3 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-800">
-            {adminUsers.map((admin) => (
-              <tr key={admin.id} className="hover:bg-slate-800/20 transition-all">
-                <td className="p-3 font-medium text-slate-100">{admin.name}</td>
-                <td className="p-3 text-slate-300 text-xs font-mono">{admin.email}</td>
-                <td className="p-3">
-                  <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${
-                    admin.role === 'Super Admin'
-                      ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
-                      : admin.role === 'Accounts Admin'
-                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                      : admin.role === 'Transport Admin'
-                      ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                      : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
-                  }`}>
-                    {admin.role}
-                  </span>
-                </td>
-                <td className="p-3">
-                  <span className={`px-2 py-0.5 rounded text-[11px] font-semibold ${
-                    admin.status === 'Active'
-                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                      : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                  }`}>
-                    {admin.status}
-                  </span>
-                </td>
-                <td className="p-3 text-xs text-slate-400 font-mono">{admin.lastLogin}</td>
-                <td className="p-3 text-right space-x-3">
-                  <button
-                    onClick={() => {
-                      setAdminUsers(adminUsers.map(a => a.id === admin.id ? { ...a, status: a.status === 'Active' ? 'Inactive' : 'Active' } : a));
-                    }}
-                    className="text-xs text-blue-400 hover:underline font-medium"
-                  >
-                    Toggle Status
-                  </button>
-                  {admin.role !== 'Super Admin' && (
-                    <button
-                      onClick={() => setAdminUsers(adminUsers.filter(a => a.id !== admin.id))}
-                      className="text-xs text-rose-400 hover:underline font-medium"
-                    >
-                      Revoke
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+                                {/* Admin Users Table */}
+                                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                                    <h3 className="text-lg font-semibold text-slate-100">Authorized Administrators</h3>
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-left text-sm text-slate-300">
+                                            <thead className="bg-slate-800/50 text-slate-400 uppercase text-[10px]">
+                                                <tr>
+                                                    <th className="p-3">Administrator Name</th>
+                                                    <th className="p-3">Email Address</th>
+                                                    <th className="p-3">Access Role</th>
+                                                    <th className="p-3">Status</th>
+                                                    <th className="p-3">Last Login</th>
+                                                    <th className="p-3 text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-800">
+                                                {adminUsers.map((admin) => (
+                                                    <tr key={admin.id} className="hover:bg-slate-800/20 transition-all">
+                                                        <td className="p-3 font-medium text-slate-100">{admin.name}</td>
+                                                        <td className="p-3 text-slate-300 text-xs font-mono">{admin.email}</td>
+                                                        <td className="p-3">
+                                                            <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${admin.role === 'Super Admin'
+                                                                    ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+                                                                    : admin.role === 'Accounts Admin'
+                                                                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                                                        : admin.role === 'Transport Admin'
+                                                                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                                                                            : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                                                                }`}>
+                                                                {admin.role}
+                                                            </span>
+                                                        </td>
+                                                        <td className="p-3">
+                                                            <span className={`px-2 py-0.5 rounded text-[11px] font-semibold ${admin.status === 'Active'
+                                                                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                                                    : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                                                                }`}>
+                                                                {admin.status}
+                                                            </span>
+                                                        </td>
+                                                        <td className="p-3 text-xs text-slate-400 font-mono">{admin.lastLogin}</td>
+                                                        <td className="p-3 text-right space-x-3">
+                                                            <button
+                                                                onClick={() => {
+                                                                    setAdminUsers(adminUsers.map(a => a.id === admin.id ? { ...a, status: a.status === 'Active' ? 'Inactive' : 'Active' } : a));
+                                                                }}
+                                                                className="text-xs text-blue-400 hover:underline font-medium"
+                                                            >
+                                                                Toggle Status
+                                                            </button>
+                                                            {admin.role !== 'Super Admin' && (
+                                                                <button
+                                                                    onClick={() => setAdminUsers(adminUsers.filter(a => a.id !== admin.id))}
+                                                                    className="text-xs text-rose-400 hover:underline font-medium"
+                                                                >
+                                                                    Revoke
+                                                                </button>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
-    {/* Add Admin User Modal Popup */}
-    {isAdminModalOpen && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-5">
-          <div className="flex justify-between items-center pb-3 border-b border-slate-800">
-            <h3 className="text-lg font-bold text-slate-100">Add Administrator Account</h3>
-            <button
-              onClick={() => setIsAdminModalOpen(false)}
-              className="text-slate-400 hover:text-slate-200 text-sm font-bold"
-            >
-              ✕
-            </button>
-          </div>
+                                {/* Add Admin User Modal Popup */}
+                                {isAdminModalOpen && (
+                                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+                                        <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-5">
+                                            <div className="flex justify-between items-center pb-3 border-b border-slate-800">
+                                                <h3 className="text-lg font-bold text-slate-100">Add Administrator Account</h3>
+                                                <button
+                                                    onClick={() => setIsAdminModalOpen(false)}
+                                                    className="text-slate-400 hover:text-slate-200 text-sm font-bold"
+                                                >
+                                                    ✕
+                                                </button>
+                                            </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (!admName || !admEmail) return;
+                                            <form
+                                                onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    if (!admName || !admEmail) return;
 
-              setAdminUsers([
-                ...adminUsers,
-                {
-                  id: Date.now().toString(),
-                  name: admName,
-                  email: admEmail,
-                  role: admRole,
-                  status: admStatus,
-                  lastLogin: 'Never',
-                },
-              ]);
-              setAdmName('');
-              setAdmEmail('');
-              setIsAdminModalOpen(false);
-            }}
-            className="space-y-4"
-          >
-            <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">Administrator Name</label>
-              <input
-                type="text"
-                placeholder="e.g. Suresh Kumar"
-                value={admName}
-                onChange={(e) => setAdmName(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                required
-              />
-            </div>
+                                                    setAdminUsers([
+                                                        ...adminUsers,
+                                                        {
+                                                            id: Date.now().toString(),
+                                                            name: admName,
+                                                            email: admEmail,
+                                                            role: admRole,
+                                                            status: admStatus,
+                                                            lastLogin: 'Never',
+                                                        },
+                                                    ]);
+                                                    setAdmName('');
+                                                    setAdmEmail('');
+                                                    setIsAdminModalOpen(false);
+                                                }}
+                                                className="space-y-4"
+                                            >
+                                                <div>
+                                                    <label className="block text-xs font-medium text-slate-400 mb-1">Administrator Name</label>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="e.g. Suresh Kumar"
+                                                        value={admName}
+                                                        onChange={(e) => setAdmName(e.target.value)}
+                                                        className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                                                        required
+                                                    />
+                                                </div>
 
-            <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">Email Address (Username)</label>
-              <input
-                type="email"
-                placeholder="e.g. suresh@school.edu"
-                value={admEmail}
-                onChange={(e) => setAdmEmail(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                required
-              />
-            </div>
+                                                <div>
+                                                    <label className="block text-xs font-medium text-slate-400 mb-1">Email Address (Username)</label>
+                                                    <input
+                                                        type="email"
+                                                        placeholder="e.g. suresh@school.edu"
+                                                        value={admEmail}
+                                                        onChange={(e) => setAdmEmail(e.target.value)}
+                                                        className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                                                        required
+                                                    />
+                                                </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Access Role</label>
-                <select
-                  value={admRole}
-                  onChange={(e) => setAdmRole(e.target.value as any)}
-                  className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
-                >
-                  <option value="Super Admin">Super Admin</option>
-                  <option value="Sub-Admin">Sub-Admin</option>
-                  <option value="Accounts Admin">Accounts Admin</option>
-                  <option value="Transport Admin">Transport Admin</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Account Status</label>
-                <select
-                  value={admStatus}
-                  onChange={(e) => setAdmStatus(e.target.value as any)}
-                  className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
-                >
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                </select>
-              </div>
-            </div>
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    <div>
+                                                        <label className="block text-xs font-medium text-slate-400 mb-1">Access Role</label>
+                                                        <select
+                                                            value={admRole}
+                                                            onChange={(e) => setAdmRole(e.target.value as any)}
+                                                            className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
+                                                        >
+                                                            <option value="Super Admin">Super Admin</option>
+                                                            <option value="Sub-Admin">Sub-Admin</option>
+                                                            <option value="Accounts Admin">Accounts Admin</option>
+                                                            <option value="Transport Admin">Transport Admin</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-xs font-medium text-slate-400 mb-1">Account Status</label>
+                                                        <select
+                                                            value={admStatus}
+                                                            onChange={(e) => setAdmStatus(e.target.value as any)}
+                                                            className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
+                                                        >
+                                                            <option value="Active">Active</option>
+                                                            <option value="Inactive">Inactive</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-            <div className="flex justify-end gap-3 pt-3 border-t border-slate-800">
-              <button
-                type="button"
-                onClick={() => setIsAdminModalOpen(false)}
-                className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition-all"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all"
-              >
-                Create Admin Account
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    )}
-  </div>
-)}
+                                                <div className="flex justify-end gap-3 pt-3 border-t border-slate-800">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setIsAdminModalOpen(false)}
+                                                        className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition-all"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button
+                                                        type="submit"
+                                                        className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all"
+                                                    >
+                                                        Create Admin Account
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
-                   {/* PORTAL SETTINGS (School Branding, Academic Year, Address & Social Media) */}
-{activeTab === 'settings' && (
-  <div className="space-y-6">
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-      <h3 className="text-lg font-semibold text-slate-100">Portal Settings & Configuration</h3>
-      <p className="text-xs text-slate-400 mt-0.5">Configure school branding, current academic year, physical address, and official social media handles.</p>
-    </div>
+                        {/* PORTAL SETTINGS (School Branding, Academic Year, Address & Social Media) */}
+                        {activeTab === 'settings' && (
+                            <div className="space-y-6">
+                                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                                    <h3 className="text-lg font-semibold text-slate-100">Portal Settings & Configuration</h3>
+                                    <p className="text-xs text-slate-400 mt-0.5">Configure school branding, current academic year, physical address, and official social media handles.</p>
+                                </div>
 
-    {isSettingsSaved && (
-      <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs font-semibold flex items-center justify-between">
-        <span>✓ Portal settings successfully updated and saved!</span>
-        <button onClick={() => setIsSettingsSaved(false)} className="text-emerald-300 hover:text-white font-bold">✕</button>
-      </div>
-    )}
+                                {isSettingsSaved && (
+                                    <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs font-semibold flex items-center justify-between">
+                                        <span>✓ Portal settings successfully updated and saved!</span>
+                                        <button onClick={() => setIsSettingsSaved(false)} className="text-emerald-300 hover:text-white font-bold">✕</button>
+                                    </div>
+                                )}
 
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setIsSettingsSaved(true);
-        setTimeout(() => setIsSettingsSaved(false), 4000);
-      }}
-      className="space-y-6"
-    >
-      {/* General & Academic Year */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-        <h4 className="text-md font-semibold text-slate-200 border-b border-slate-800 pb-3">General & Academic Year</h4>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">School Name</label>
-            <input
-              type="text"
-              value={schoolName}
-              onChange={(e) => setSchoolName(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">Current Academic Year</label>
-            <select
-              value={academicYear}
-              onChange={(e) => setAcademicYear(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
-            >
-              <option value="2025-2026">2025-2026</option>
-              <option value="2026-2027">2026-2027</option>
-              <option value="2027-2028">2027-2028</option>
-            </select>
-          </div>
-        </div>
-      </div>
+                                <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        setIsSettingsSaved(true);
+                                        setTimeout(() => setIsSettingsSaved(false), 4000);
+                                    }}
+                                    className="space-y-6"
+                                >
+                                    {/* General & Academic Year */}
+                                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                                        <h4 className="text-md font-semibold text-slate-200 border-b border-slate-800 pb-3">General & Academic Year</h4>
 
-      {/* Contact & Address Details */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-        <h4 className="text-md font-semibold text-slate-200 border-b border-slate-800 pb-3">School Address & Contact Info</h4>
-        
-        <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1">School Full Address</label>
-          <textarea
-            value={schoolAddress}
-            onChange={(e) => setSchoolAddress(e.target.value)}
-            rows={2}
-            className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500 resize-none"
-            required
-          />
-        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">School Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={schoolName}
+                                                    onChange={(e) => setSchoolName(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">Current Academic Year</label>
+                                                <select
+                                                    value={academicYear}
+                                                    onChange={(e) => setAcademicYear(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
+                                                >
+                                                    <option value="2025-2026">2025-2026</option>
+                                                    <option value="2026-2027">2026-2027</option>
+                                                    <option value="2027-2028">2027-2028</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">Official Email Address</label>
-            <input
-              type="email"
-              value={contactEmail}
-              onChange={(e) => setContactEmail(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">Contact Phone Number</label>
-            <input
-              type="text"
-              value={contactPhone}
-              onChange={(e) => setContactPhone(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-        </div>
-      </div>
+                                    {/* Contact & Address Details */}
+                                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                                        <h4 className="text-md font-semibold text-slate-200 border-b border-slate-800 pb-3">School Address & Contact Info</h4>
 
-      {/* Social Media Links */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-        <h4 className="text-md font-semibold text-slate-200 border-b border-slate-800 pb-3">Social Media Profiles</h4>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">Facebook Page URL</label>
-            <input
-              type="url"
-              value={socialFacebook}
-              onChange={(e) => setSocialFacebook(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">Instagram Handle URL</label>
-            <input
-              type="url"
-              value={socialInstagram}
-              onChange={(e) => setSocialInstagram(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">Twitter / X Profile URL</label>
-            <input
-              type="url"
-              value={socialTwitter}
-              onChange={(e) => setSocialTwitter(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1">YouTube Channel URL</label>
-            <input
-              type="url"
-              value={socialYoutube}
-              onChange={(e) => setSocialYoutube(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-        </div>
-      </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-slate-400 mb-1">School Full Address</label>
+                                            <textarea
+                                                value={schoolAddress}
+                                                onChange={(e) => setSchoolAddress(e.target.value)}
+                                                rows={2}
+                                                className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500 resize-none"
+                                                required
+                                            />
+                                        </div>
 
-      <div className="flex justify-end pt-2">
-        <button
-          type="submit"
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all"
-        >
-          Save Portal Settings
-        </button>
-      </div>
-    </form>
-  </div>
-)}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">Official Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    value={contactEmail}
+                                                    onChange={(e) => setContactEmail(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">Contact Phone Number</label>
+                                                <input
+                                                    type="text"
+                                                    value={contactPhone}
+                                                    onChange={(e) => setContactPhone(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-blue-500"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    {/* Social Media Links */}
+                                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                                        <h4 className="text-md font-semibold text-slate-200 border-b border-slate-800 pb-3">Social Media Profiles</h4>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">Facebook Page URL</label>
+                                                <input
+                                                    type="url"
+                                                    value={socialFacebook}
+                                                    onChange={(e) => setSocialFacebook(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">Instagram Handle URL</label>
+                                                <input
+                                                    type="url"
+                                                    value={socialInstagram}
+                                                    onChange={(e) => setSocialInstagram(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">Twitter / X Profile URL</label>
+                                                <input
+                                                    type="url"
+                                                    value={socialTwitter}
+                                                    onChange={(e) => setSocialTwitter(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-slate-400 mb-1">YouTube Channel URL</label>
+                                                <input
+                                                    type="url"
+                                                    value={socialYoutube}
+                                                    onChange={(e) => setSocialYoutube(e.target.value)}
+                                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-100 focus:outline-none focus:border-blue-500"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-end pt-2">
+                                        <button
+                                            type="submit"
+                                            className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-600/30 transition-all"
+                                        >
+                                            Save Portal Settings
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
 
                     </div>
                 )}
             </main>
         </div>
+    );
+}
+
+export default function Dashboard() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
+            <DashboardContent />
+        </Suspense>
     );
 }
