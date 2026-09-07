@@ -13,7 +13,6 @@ export default function Home() {
     e.preventDefault();
     setError('');
 
-    // Updated Authentication Logic with Admin Pages Redirect
     if (email === 'admin@school.com' && password === 'admin123') {
       router.push('/adminpages');
     } else if (email === 'teacher@school.com' && password === 'teacher123') {
@@ -21,75 +20,116 @@ export default function Home() {
     } else if (email === 'parent@school.com' && password === 'parent123') {
       router.push('/parentpages');
     } else {
-      setError('Invalid email or password. Please check the dummy credentials.');
+      setError('Invalid email or password. Please check the demo credentials.');
     }
   };
 
+  const fillCredentials = (fillEmail: string, fillPass: string) => {
+    setEmail(fillEmail);
+    setPassword(fillPass);
+    setError('');
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center p-6 text-slate-100">
-      <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 p-8 rounded-2xl shadow-2xl w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">
-            Rakvih School Demo
-          </h1>
-          <p className="text-sm text-slate-400 mt-2">Secure Login Gateway</p>
-        </div>
+    <main 
+      className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] flex items-center justify-center p-4 sm:p-6 antialiased selection:bg-orange-100 selection:text-[#ea580c]"
+      style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}
+    >
+      {/* Changed max-w-lg to max-w-md, and p-10 to p-8 */}
+      <div className="bg-white border border-[#e5e5ea] p-6 sm:p-8 rounded-[32px] shadow-xl w-full max-w-md transition-all duration-300 relative overflow-hidden">
+        
+        {/* Decorative Background Accents */}
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#ea580c]/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-orange-100/50 rounded-full blur-3xl pointer-events-none"></div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
-          {/* Email Input */}
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g., admin@school.com"
-              className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-              required
-            />
+        <div className="relative z-10">
+          <div className="text-center mb-6 flex flex-col items-center">
+            
+            {/* Title - scaled down from 4xl to 3xl */}
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[#1d1d1f] mb-1">
+              Demo School
+            </h1>
+            <p className="text-[11px] sm:text-[12px] text-[#86868b] font-black uppercase tracking-[0.2em]">
+              Secure Login Gateway
+            </p>
           </div>
 
-          {/* Password Input */}
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-              required
-            />
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg text-rose-400 text-sm text-center">
-              {error}
+          <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email Input - reduced padding slightly (py-3 instead of py-3.5) */}
+            <div>
+              <label className="block text-[11px] font-extrabold uppercase tracking-widest text-[#86868b] mb-1.5 pl-4">
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="e.g., admin@school.com"
+                className="w-full px-5 py-3 bg-[#f5f5f7] border border-[#e5e5ea] rounded-full text-[14px] text-[#1d1d1f] placeholder-[#86868b] focus:outline-none focus:bg-white focus:border-[#ea580c] transition-all font-semibold"
+                required
+              />
             </div>
-          )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/20 transition-all mt-4"
-          >
-            Login to Portal
-          </button>
-        </form>
+            {/* Password Input */}
+            <div>
+              <label className="block text-[11px] font-extrabold uppercase tracking-widest text-[#86868b] mb-1.5 pl-4">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full px-5 py-3 bg-[#f5f5f7] border border-[#e5e5ea] rounded-full text-[14px] text-[#1d1d1f] placeholder-[#86868b] focus:outline-none focus:bg-white focus:border-[#ea580c] transition-all font-semibold"
+                required
+              />
+            </div>
 
-        {/* Helper text for demo purposes */}
-        <div className="mt-8 pt-6 border-t border-slate-800">
-          <p className="text-xs text-slate-400 font-semibold mb-2 uppercase tracking-wider">Demo Credentials:</p>
-          <ul className="text-xs text-slate-500 space-y-1">
-            <li><strong className="text-slate-300">Admin:</strong> admin@school.com / admin123 (→ /adminpages)</li>
-            <li><strong className="text-slate-300">Teacher:</strong> teacher@school.com / teacher123</li>
-            <li><strong className="text-slate-300">Parent:</strong> parent@school.com / parent123</li>
-          </ul>
+            {/* Error Message */}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-full text-red-600 text-[13px] font-black text-center shadow-sm animate-in fade-in slide-in-from-top-2">
+                {error}
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full py-3 px-6 bg-gradient-to-r from-[#ea580c] to-[#f97316] text-white font-black text-[14px] rounded-full shadow-md hover:shadow-lg transition-all mt-2 uppercase tracking-widest"
+            >
+              Login to Portal
+            </button>
+          </form>
+
+          {/* Helper text */}
+          <div className="mt-6 pt-5 border-t border-[#e5e5ea]">
+            <p className="text-[10px] text-[#ea580c] font-black mb-3 uppercase tracking-widest text-center">
+              Click any demo account below to auto-fill
+            </p>
+            <ul className="text-[12px] text-[#6e6e73] space-y-2 font-semibold">
+              <li 
+                onClick={() => fillCredentials('admin@school.com', 'admin123')}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 p-3 bg-[#f5f5f7] hover:bg-[#fff2e8] border border-[#e5e5ea] hover:border-[#ea580c] rounded-2xl cursor-pointer transition-all shadow-sm group"
+              >
+                <span className="font-black text-[#1d1d1f] group-hover:text-[#ea580c]">Admin</span>
+                <span className="font-mono text-[10px] sm:text-[11px] text-[#86868b]">admin@school.com / admin123</span>
+              </li>
+              <li 
+                onClick={() => fillCredentials('teacher@school.com', 'teacher123')}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 p-3 bg-[#f5f5f7] hover:bg-[#fff2e8] border border-[#e5e5ea] hover:border-[#ea580c] rounded-2xl cursor-pointer transition-all shadow-sm group"
+              >
+                <span className="font-black text-[#1d1d1f] group-hover:text-[#ea580c]">Teacher</span>
+                <span className="font-mono text-[10px] sm:text-[11px] text-[#86868b]">teacher@school.com / teacher123</span>
+              </li>
+              <li 
+                onClick={() => fillCredentials('parent@school.com', 'parent123')}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 p-3 bg-[#f5f5f7] hover:bg-[#fff2e8] border border-[#e5e5ea] hover:border-[#ea580c] rounded-2xl cursor-pointer transition-all shadow-sm group"
+              >
+                <span className="font-black text-[#1d1d1f] group-hover:text-[#ea580c]">Parent</span>
+                <span className="font-mono text-[10px] sm:text-[11px] text-[#86868b]">parent@school.com / parent123</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </main>
